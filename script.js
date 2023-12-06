@@ -2,10 +2,26 @@ document.addEventListener("DOMContentLoaded", function () {
   createBoard();
 });
 
+// Keep track of cell changes for undo feature
+const cellChanges = [];
+
 function createBoard() {
   const board = document.getElementById("bingo-board");
   board.innerHTML = "";
 
+  // Add header row with letters 'B', 'I', 'N', 'G', 'O'
+  //   const headerRow = document.createElement("tr");
+  //   const headerLetters = ['B', 'I', 'N', 'G', 'O'];
+
+  //   for (let k = 0; k < 5; k++) {
+  //     const headerCell = document.createElement("td");
+  //     headerCell.textContent = headerLetters[k];
+  //     headerRow.appendChild(headerCell);
+  //   }
+
+  //   board.appendChild(headerRow);
+
+  // Generate unique numbers for the remaining cells
   const numbers = generateUniqueNumbers(1, 25);
 
   for (let i = 0; i < 5; i++) {
@@ -41,10 +57,36 @@ function generateUniqueNumbers(min, max) {
   return numbers;
 }
 
+// function markCell(cellId) {
+//   const cell = document.getElementById(cellId);
+
+//   const number = cell.textContent;
+
+//   // Keep track of cell changes for undo
+//   if (cell.textContent !== "X") {
+//     cellChanges.push({ cellId, number });
+//     cell.textContent = "X";
+//   }
+// }
+
 function markCell(cellId) {
   const cell = document.getElementById(cellId);
-  if (cell.textContent !== "X") {
-    cell.textContent = "X";
+  const number = cell.textContent;
+
+  if (number) {
+    if (!cell.style.textDecoration.includes("line-through")) {
+      cell.style.textDecoration = "line-through";
+    } else {
+      cell.style.textDecoration = "";
+    }
+  }
+}
+
+function undo() {
+  if (cellChanges.length > 0) {
+    const lastChange = cellChanges.pop();
+    const cell = document.getElementById(lastChange.cellId);
+    cell.textContent = lastChange.number;
   }
 }
 
@@ -136,10 +178,10 @@ function checkBingo() {
     (diagonalLines.filter((line) => isLineComplete(line)).length === 1 &&
       verticalLines.filter((line) => isLineComplete(line)).length === 1 &&
       horizontalLines.filter((line) => isLineComplete(line)).length === 3) ||
-      // Total of 1 diagonal line, 2 vertical line, and 2 horizontal lines
+    // Total of 1 diagonal line, 2 vertical line, and 2 horizontal lines
     (diagonalLines.filter((line) => isLineComplete(line)).length === 1 &&
-    verticalLines.filter((line) => isLineComplete(line)).length === 2 &&
-    horizontalLines.filter((line) => isLineComplete(line)).length === 2)
+      verticalLines.filter((line) => isLineComplete(line)).length === 2 &&
+      horizontalLines.filter((line) => isLineComplete(line)).length === 2)
   ) {
     alert("Bingooooooo!");
     return;
@@ -147,4 +189,7 @@ function checkBingo() {
 }
 function resetBoard() {
   createBoard();
+
+  // Clear the cellChanges array when resetting the board
+  cellChanges.length = 0;
 }
