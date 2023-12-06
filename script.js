@@ -57,30 +57,30 @@ function generateUniqueNumbers(min, max) {
   return numbers;
 }
 
-// function markCell(cellId) {
-//   const cell = document.getElementById(cellId);
-
-//   const number = cell.textContent;
-
-//   // Keep track of cell changes for undo
-//   if (cell.textContent !== "X") {
-//     cellChanges.push({ cellId, number });
-//     cell.textContent = "X";
-//   }
-// }
-
 function markCell(cellId) {
   const cell = document.getElementById(cellId);
+
   const number = cell.textContent;
 
-  if (number) {
-    if (!cell.style.textDecoration.includes("line-through")) {
-      cell.style.textDecoration = "line-through";
-    } else {
-      cell.style.textDecoration = "";
-    }
+  // Keep track of cell changes for undo
+  if (cell.textContent !== "X") {
+    cellChanges.push({ cellId, number });
+    cell.textContent = "X";
   }
 }
+
+// function markCell(cellId) {
+//   const cell = document.getElementById(cellId);
+//   const number = cell.textContent;
+
+//   if (number) {
+//     if (!cell.style.textDecoration.includes("line-through")) {
+//       cell.style.textDecoration = "line-through";
+//     } else {
+//       cell.style.textDecoration = "";
+//     }
+//   }
+// }
 
 function undo() {
   if (cellChanges.length > 0) {
