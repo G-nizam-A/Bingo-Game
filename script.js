@@ -66,6 +66,7 @@ function markCell(cellId) {
   if (cell.textContent !== "X") {
     cellChanges.push({ cellId, number });
     cell.textContent = "X";
+    cell.style.backgroundColor = 'rgb(255 15 15 / 20%)'
   }
 }
 
