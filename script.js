@@ -181,11 +181,32 @@ function checkBingo() {
     // Total of 1 diagonal line, 2 vertical line, and 2 horizontal lines
     (diagonalLines.filter((line) => isLineComplete(line)).length === 1 &&
       verticalLines.filter((line) => isLineComplete(line)).lenth === 2 &&
-      horizontalLines.filter((line) => isLineComplete(line)).length === 2) ||
-    // Total of 2 diagonal line, 2 vertical line, and 2 horizontal lines
+      horizontalLines.filter((line) => isLineComplete(line)).length === 2)  ||
+      // New winning conditions
+    // Total of 2 diagonal lines, 2 vertical lines, and 2 horizontal lines
     (diagonalLines.filter((line) => isLineComplete(line)).length === 2 &&
-      verticalLines.filter((line) => isLineComplete(line)).lenth === 2 &&
-      horizontalLines.filter((line) => isLineComplete(line)).length === 2)
+    verticalLines.filter((line) => isLineComplete(line)).length === 2 &&
+    horizontalLines.filter((line) => isLineComplete(line)).length === 2) ||
+  // Total of 2 diagonal lines, 1 vertical line, and 3 horizontal lines
+  (diagonalLines.filter((line) => isLineComplete(line)).length === 2 &&
+    verticalLines.filter((line) => isLineComplete(line)).length === 1 &&
+    horizontalLines.filter((line) => isLineComplete(line)).length === 3) ||
+  // Total of 1 diagonal line, 3 vertical lines, and 2 horizontal lines
+  (diagonalLines.filter((line) => isLineComplete(line)).length === 1 &&
+    verticalLines.filter((line) => isLineComplete(line)).length === 3 &&
+    horizontalLines.filter((line) => isLineComplete(line)).length === 2) ||
+  // Total of 1 diagonal line, 1 vertical line, and 4 horizontal lines
+  (diagonalLines.filter((line) => isLineComplete(line)).length === 1 &&
+    verticalLines.filter((line) => isLineComplete(line)).length === 1 &&
+    horizontalLines.filter((line) => isLineComplete(line)).length === 4) ||
+  // Total of 1 diagonal line, 2 vertical lines, and 3 horizontal lines
+  (diagonalLines.filter((line) => isLineComplete(line)).length === 1 &&
+    verticalLines.filter((line) => isLineComplete(line)).length === 2 &&
+    horizontalLines.filter((line) => isLineComplete(line)).length === 3) ||
+  // Total of 3 diagonal lines, 1 vertical line, and 1 horizontal line
+  (diagonalLines.filter((line) => isLineComplete(line)).length === 3 &&
+    verticalLines.filter((line) => isLineComplete(line)).length === 1 &&
+    horizontalLines.filter((line) => isLineComplete(line)).length === 1)
   ) {
     alert("Bingooooooo!");
     return;
