@@ -180,7 +180,11 @@ function checkBingo() {
       horizontalLines.filter((line) => isLineComplete(line)).length === 3) ||
     // Total of 1 diagonal line, 2 vertical line, and 2 horizontal lines
     (diagonalLines.filter((line) => isLineComplete(line)).length === 1 &&
-      verticalLines.filter((line) => isLineComplete(line)).length === 2 &&
+      verticalLines.filter((line) => isLineComplete(line)).lenth === 2 &&
+      horizontalLines.filter((line) => isLineComplete(line)).length === 2) ||
+    // Total of 2 diagonal line, 2 vertical line, and 2 horizontal lines
+    (diagonalLines.filter((line) => isLineComplete(line)).length === 2 &&
+      verticalLines.filter((line) => isLineComplete(line)).lenth === 2 &&
       horizontalLines.filter((line) => isLineComplete(line)).length === 2)
   ) {
     alert("Bingooooooo!");
