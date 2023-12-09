@@ -209,6 +209,7 @@ function checkBingo() {
     verticalLines.filter((line) => isLineComplete(line)).length === 1 &&
     horizontalLines.filter((line) => isLineComplete(line)).length === 1)
   ) {
+    addConfettiPieces(confettiContainer, 13);
     alert("Bingooooooo!");
     return;
   }
@@ -219,3 +220,19 @@ function resetBoard() {
   // Clear the cellChanges array when resetting the board
   cellChanges.length = 0;
 }
+
+
+function createConfettiPiece() {
+  const confettiPiece = document.createElement('div');
+  confettiPiece.className = 'confetti-piece';
+  return confettiPiece;
+}
+
+function addConfettiPieces(container, count) {
+  for (let i = 0; i < count; i++) {
+      const confettiPiece = createConfettiPiece();
+      container.appendChild(confettiPiece);
+  }
+}
+
+const confettiContainer = document.querySelector('.confetti');
