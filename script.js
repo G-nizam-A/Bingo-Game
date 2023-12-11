@@ -88,6 +88,7 @@ function undo() {
     const lastChange = cellChanges.pop();
     const cell = document.getElementById(lastChange.cellId);
     cell.textContent = lastChange.number;
+    cell.style.backgroundColor = 'rgb(255 255 255)'
   }
 }
 
@@ -209,13 +210,16 @@ function checkBingo() {
     verticalLines.filter((line) => isLineComplete(line)).length === 1 &&
     horizontalLines.filter((line) => isLineComplete(line)).length === 1)
   ) {
+    confettiContainer.style.display = 'block'
     addConfettiPieces(confettiContainer, 13);
     alert("Bingooooooo!");
     return;
   }
 }
 function resetBoard() {
+  confettiContainer.style.display = 'none'
   createBoard();
+  
 
   // Clear the cellChanges array when resetting the board
   cellChanges.length = 0;
