@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   createBoard();
+  updateScore();
 });
 
 // Keep track of cell changes for undo feature
@@ -10,16 +11,17 @@ function createBoard() {
   board.innerHTML = "";
 
   // Add header row with letters 'B', 'I', 'N', 'G', 'O'
-  //   const headerRow = document.createElement("tr");
-  //   const headerLetters = ['B', 'I', 'N', 'G', 'O'];
+  const headerRow = document.createElement("tr");
+  const headerLetters = ["B", "I", "N", "G", "O"];
 
-  //   for (let k = 0; k < 5; k++) {
-  //     const headerCell = document.createElement("td");
-  //     headerCell.textContent = headerLetters[k];
-  //     headerRow.appendChild(headerCell);
-  //   }
+  for (let k = 0; k < 5; k++) {
+    const headerCell = document.createElement("th");
+    headerCell.setAttribute("class", "th-cell");
+    headerCell.textContent = headerLetters[k];
+    headerRow.appendChild(headerCell);
+  }
 
-  //   board.appendChild(headerRow);
+  board.appendChild(headerRow);
 
   // Generate unique numbers for the remaining cells
   const numbers = generateUniqueNumbers(1, 25);
@@ -31,6 +33,7 @@ function createBoard() {
       const cell = document.createElement("td");
       const cellId = `cell-${i}-${j}`;
       cell.setAttribute("id", cellId);
+      cell.setAttribute("class", "cell");
       cell.textContent = numbers[i * 5 + j];
 
       // Add click event listener to each cell
@@ -66,7 +69,7 @@ function markCell(cellId) {
   if (cell.textContent !== "X") {
     cellChanges.push({ cellId, number });
     cell.textContent = "X";
-    cell.style.backgroundColor = 'rgb(255 15 15 / 20%)'
+    cell.style.backgroundColor = "rgb(255 15 15 / 20%)";
   }
 }
 
@@ -88,7 +91,7 @@ function undo() {
     const lastChange = cellChanges.pop();
     const cell = document.getElementById(lastChange.cellId);
     cell.textContent = lastChange.number;
-    cell.style.backgroundColor = 'rgb(255 255 255)'
+    cell.style.backgroundColor = "rgb(255 255 255)";
   }
 }
 
@@ -127,6 +130,56 @@ function checkBingo() {
       (cellId) => document.getElementById(cellId).textContent === "X"
     );
   }
+  const headerLetters = ['B', 'I', 'N', 'G', 'O'];
+
+  const strikeThrough = (index) => {
+    const headerCell = document.querySelector(`#bingo-board tr:first-child th:nth-child(${index + 1})`);
+    headerCell.style.textDecoration = "line-through";
+  };
+  
+  let completedRows = 0;
+  
+  // Check for completed rows
+  for (let i = 0; i < 5; i++) {
+    if (isLineComplete(horizontalLines[i])) {
+      completedRows++;
+    }
+  
+    if (isLineComplete(verticalLines[i])) {
+      completedRows++;
+    }
+  }
+  
+  // Check for completed diagonals
+  if (isLineComplete(diagonalLines[0])) {
+    completedRows++;
+  }
+  
+  if (isLineComplete(diagonalLines[1])) {
+    completedRows++;
+  }
+  
+  // Apply line-through based on the number of completed lines
+  switch (completedRows) {
+    case 1:
+      strikeThrough(0); // 'B' for a single completed line
+      break;
+    case 2:
+      strikeThrough(1); // 'I' for two completed lines
+      break;
+    case 3:
+      strikeThrough(2); // 'N' for three completed lines
+      break;
+    case 4:
+      strikeThrough(3); // 'G' for four completed lines
+      break;
+    case 5:
+      strikeThrough(4); // 'O' for five completed lines
+      break;
+    default:
+      break;
+  }
+  
 
   // Check for Bingo
   if (
@@ -183,60 +236,86 @@ function checkBingo() {
     // Total of 1 diagonal line, 2 vertical line, and 2 horizontal lines
     (diagonalLines.filter((line) => isLineComplete(line)).length === 1 &&
       verticalLines.filter((line) => isLineComplete(line)).lenth === 2 &&
-      horizontalLines.filter((line) => isLineComplete(line)).length === 2)  ||
-      // New winning conditions
+      horizontalLines.filter((line) => isLineComplete(line)).length === 2) ||
     // Total of 2 diagonal lines, 2 vertical lines, and 2 horizontal lines
     (diagonalLines.filter((line) => isLineComplete(line)).length === 2 &&
-    verticalLines.filter((line) => isLineComplete(line)).length === 2 &&
-    horizontalLines.filter((line) => isLineComplete(line)).length === 2) ||
-  // Total of 2 diagonal lines, 1 vertical line, and 3 horizontal lines
-  (diagonalLines.filter((line) => isLineComplete(line)).length === 2 &&
-    verticalLines.filter((line) => isLineComplete(line)).length === 1 &&
-    horizontalLines.filter((line) => isLineComplete(line)).length === 3) ||
-  // Total of 1 diagonal line, 3 vertical lines, and 2 horizontal lines
-  (diagonalLines.filter((line) => isLineComplete(line)).length === 1 &&
-    verticalLines.filter((line) => isLineComplete(line)).length === 3 &&
-    horizontalLines.filter((line) => isLineComplete(line)).length === 2) ||
-  // Total of 1 diagonal line, 1 vertical line, and 4 horizontal lines
-  (diagonalLines.filter((line) => isLineComplete(line)).length === 1 &&
-    verticalLines.filter((line) => isLineComplete(line)).length === 1 &&
-    horizontalLines.filter((line) => isLineComplete(line)).length === 4) ||
-  // Total of 1 diagonal line, 2 vertical lines, and 3 horizontal lines
-  (diagonalLines.filter((line) => isLineComplete(line)).length === 1 &&
-    verticalLines.filter((line) => isLineComplete(line)).length === 2 &&
-    horizontalLines.filter((line) => isLineComplete(line)).length === 3) ||
-  // Total of 3 diagonal lines, 1 vertical line, and 1 horizontal line
-  (diagonalLines.filter((line) => isLineComplete(line)).length === 3 &&
-    verticalLines.filter((line) => isLineComplete(line)).length === 1 &&
-    horizontalLines.filter((line) => isLineComplete(line)).length === 1)
+      verticalLines.filter((line) => isLineComplete(line)).length === 2 &&
+      horizontalLines.filter((line) => isLineComplete(line)).length === 2) ||
+    // Total of 2 diagonal lines, 1 vertical line, and 3 horizontal lines
+    (diagonalLines.filter((line) => isLineComplete(line)).length === 2 &&
+      verticalLines.filter((line) => isLineComplete(line)).length === 1 &&
+      horizontalLines.filter((line) => isLineComplete(line)).length === 3) ||
+    // Total of 1 diagonal line, 3 vertical lines, and 2 horizontal lines
+    (diagonalLines.filter((line) => isLineComplete(line)).length === 1 &&
+      verticalLines.filter((line) => isLineComplete(line)).length === 3 &&
+      horizontalLines.filter((line) => isLineComplete(line)).length === 2) ||
+    // Total of 1 diagonal line, 1 vertical line, and 4 horizontal lines
+    (diagonalLines.filter((line) => isLineComplete(line)).length === 1 &&
+      verticalLines.filter((line) => isLineComplete(line)).length === 1 &&
+      horizontalLines.filter((line) => isLineComplete(line)).length === 4) ||
+    // Total of 1 diagonal line, 2 vertical lines, and 3 horizontal lines
+    (diagonalLines.filter((line) => isLineComplete(line)).length === 1 &&
+      verticalLines.filter((line) => isLineComplete(line)).length === 2 &&
+      horizontalLines.filter((line) => isLineComplete(line)).length === 3) ||
+    // Total of 3 diagonal lines, 1 vertical line, and 1 horizontal line
+    (diagonalLines.filter((line) => isLineComplete(line)).length === 3 &&
+      verticalLines.filter((line) => isLineComplete(line)).length === 1 &&
+      horizontalLines.filter((line) => isLineComplete(line)).length === 1)
   ) {
-    confettiContainer.style.display = 'block'
+    confettiContainer.style.display = "block";
     addConfettiPieces(confettiContainer, 13);
     alert("Bingooooooo!");
     return;
   }
 }
 function resetBoard() {
-  confettiContainer.style.display = 'none'
+  confettiContainer.style.display = "none";
   createBoard();
-  
 
-  // Clear the cellChanges array when resetting the board
   cellChanges.length = 0;
 }
 
-
+// winning moment
 function createConfettiPiece() {
-  const confettiPiece = document.createElement('div');
-  confettiPiece.className = 'confetti-piece';
+  const confettiPiece = document.createElement("div");
+  confettiPiece.className = "confetti-piece";
   return confettiPiece;
 }
 
 function addConfettiPieces(container, count) {
   for (let i = 0; i < count; i++) {
-      const confettiPiece = createConfettiPiece();
-      container.appendChild(confettiPiece);
+    const confettiPiece = createConfettiPiece();
+    container.appendChild(confettiPiece);
   }
 }
 
-const confettiContainer = document.querySelector('.confetti');
+const confettiContainer = document.querySelector(".confetti");
+
+// updating the score
+var score = localStorage.getItem("score") || 0;
+
+function updateScore() {
+  document.getElementById("score").innerText = score;
+}
+
+function incScore() {
+  score++;
+  updateScore();
+  localStorage.setItem("score", score);
+}
+
+function decScore() {
+  if (score > 0) {
+    score--;
+    updateScore();
+    localStorage.setItem("score", score);
+  }
+}
+
+var lastResetDate = localStorage.getItem("lastResetDate");
+
+if (!lastResetDate || new Date().toLocaleDateString() !== lastResetDate) {
+  score = 0;
+  localStorage.setItem("score", score);
+  localStorage.setItem("lastResetDate", new Date().toLocaleDateString());
+}

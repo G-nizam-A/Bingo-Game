@@ -32,6 +32,12 @@ button {
     font-size: 1em;
     cursor: pointer;
 }
+.cell{
+    cursor: pointer;
+}
+.th-cell{
+    font-size: 24px;
+}
 
 .confetti {
     display: flex;
