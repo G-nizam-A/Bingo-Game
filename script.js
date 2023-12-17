@@ -91,7 +91,7 @@ function undo() {
     const lastChange = cellChanges.pop();
     const cell = document.getElementById(lastChange.cellId);
     cell.textContent = lastChange.number;
-    cell.style.backgroundColor = "rgb(255 255 255)";
+    cell.style.backgroundColor = "transparent";
   }
 }
 let theme = 0;
