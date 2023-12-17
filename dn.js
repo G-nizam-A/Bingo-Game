@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   //Animation control function - you could split these into rise and set funtions but I have'nt done that yet
   function gettimeofday(now) {
-    let hour = 12;
+    let hour = now;
     if (hour >= 0 && hour < 5) {
       timeofdaypercent = hour - 0;
       timeofdaypercent = (timeofdaypercent / 4) * 100;
