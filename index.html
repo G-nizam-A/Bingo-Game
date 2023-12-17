@@ -12,21 +12,64 @@
 </head>
 
 <body>
-    <div class="confetti">
+    <div class="body">
+        <div id="world">
+            <div id="sun">
+                <div class="sunbeams">
+                    <div class="beam beam1"></div>
+                    <div class="beam beam2"></div>
+                    <div class="beam beam3"></div>
+                    <div class="beam beam4"></div>
+                    <div class="beam beam5"></div>
+                    <div class="beam beam6"></div>
+                    <div class="beam beam7"></div>
+                    <div class="beam beam8"></div>
+                </div>
+                <div class="eyes">
+                    <div class="eyes-l"></div>
+                    <div class="eyes-r"></div>
+                </div>
+            </div>
+            <div id="moon">
+                <div class="crater crater1"></div>
+                <div class="crater crater2"></div>
+                <div class="crater crater3"></div>
+                <div class="crater crater4"></div>
+                <div class="crater crater5"></div>
+                <div class="crater crater6"></div>
+                <div class="eyes">
+                    <div class="eyes-l"></div>
+                    <div class="eyes-r"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="slidecontainer">
+        <input type="range" min="0" max="24" value="1" class="slider" id="myRange">
+        <p class="simtime">Simulated time: <span id="demo"></span>:00</p>
+    </div>
+
+     <div class="confetti">
     </div>
     <div class="bingo-container">
         <h1>Bingo Game</h1>
-        <div class="score-container">
-            <p>Score: <span id="score">0</span></p>
+
+        <div class="score_card">
+            <button onclick="decScore()">-</button>
+            <div class="score-container">
+                <p>Score: <span id="score">0</span></p>
+            </div>
+            <button onclick="incScore()">+</button>
         </div>
-        <button onclick="incScore()">Add Score</button>
-        <button onclick="decScore()">Remove Score</button>
 
         <table id="bingo-board"></table>
         <button onclick="resetBoard()">New Game</button>
         <button onclick="undo()">Undo</button>
+        <button onclick="removeTheme()">Theme</button>
     </div>
     <script src="script.js"></script>
+    <script src="dn.js"></script>
 </body>
 
 </html>

@@ -94,6 +94,17 @@ function undo() {
     cell.style.backgroundColor = "rgb(255 255 255)";
   }
 }
+let theme = 0;
+let themeBody = document.querySelector(".body");
+function removeTheme() {
+  if (theme === 0) {
+    themeBody.style.display = "none";
+    theme = 1;
+  } else {
+    themeBody.style.display = "block";
+    theme = 0;
+  }
+}
 
 function checkBingo() {
   const horizontalLines = [];
@@ -130,56 +141,67 @@ function checkBingo() {
       (cellId) => document.getElementById(cellId).textContent === "X"
     );
   }
-  const headerLetters = ['B', 'I', 'N', 'G', 'O'];
+  const headerLetters = ["B", "I", "N", "G", "O"];
 
   const strikeThrough = (index) => {
-    const headerCell = document.querySelector(`#bingo-board tr:first-child th:nth-child(${index + 1})`);
+    const headerCell = document.querySelector(
+      `#bingo-board tr:first-child th:nth-child(${index + 1})`
+    );
     headerCell.style.textDecoration = "line-through";
   };
-  
+
   let completedRows = 0;
-  
+
   // Check for completed rows
   for (let i = 0; i < 5; i++) {
     if (isLineComplete(horizontalLines[i])) {
       completedRows++;
     }
-  
+
     if (isLineComplete(verticalLines[i])) {
       completedRows++;
     }
   }
-  
+
   // Check for completed diagonals
   if (isLineComplete(diagonalLines[0])) {
     completedRows++;
   }
-  
+
   if (isLineComplete(diagonalLines[1])) {
     completedRows++;
   }
-  
+
   // Apply line-through based on the number of completed lines
   switch (completedRows) {
     case 1:
       strikeThrough(0); // 'B' for a single completed line
       break;
     case 2:
+      strikeThrough(0); // 'B' for two completed lines
       strikeThrough(1); // 'I' for two completed lines
       break;
     case 3:
+      strikeThrough(0); // 'B' for three completed lines
+      strikeThrough(1); // 'I' for three completed lines
       strikeThrough(2); // 'N' for three completed lines
       break;
     case 4:
+      strikeThrough(0); // 'B' for four completed lines
+      strikeThrough(1); // 'I' for four completed lines
+      strikeThrough(2); // 'N' for four completed lines
       strikeThrough(3); // 'G' for four completed lines
       break;
     case 5:
+      strikeThrough(0); // 'B' for five completed lines
+      strikeThrough(1); // 'I' for five completed lines
+      strikeThrough(2); // 'N' for five completed lines
+      strikeThrough(3); // 'G' for five completed lines
       strikeThrough(4); // 'O' for five completed lines
       break;
     default:
       break;
   }
-  
 
   // Check for Bingo
   if (
@@ -235,7 +257,7 @@ function checkBingo() {
       horizontalLines.filter((line) => isLineComplete(line)).length === 3) ||
     // Total of 1 diagonal line, 2 vertical line, and 2 horizontal lines
     (diagonalLines.filter((line) => isLineComplete(line)).length === 1 &&
-      verticalLines.filter((line) => isLineComplete(line)).lenth === 2 &&
+      verticalLines.filter((line) => isLineComplete(line)).length === 2 &&
       horizontalLines.filter((line) => isLineComplete(line)).length === 2) ||
     // Total of 2 diagonal lines, 2 vertical lines, and 2 horizontal lines
     (diagonalLines.filter((line) => isLineComplete(line)).length === 2 &&
