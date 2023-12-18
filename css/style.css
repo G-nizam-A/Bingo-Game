@@ -27,7 +27,7 @@ body {
     border: 1px solid #000;
     text-align: center;
     font-size: 1.5em;
-    border-radius: 3px;
+    /* border-radius: 3px; */
     overflow: hidden;
  
 }

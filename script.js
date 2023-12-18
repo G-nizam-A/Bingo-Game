@@ -33,7 +33,7 @@ function createBoard() {
       const cell = document.createElement("td");
       const cellId = `cell-${i}-${j}`;
       cell.setAttribute("id", cellId);
-      cell.setAttribute("class", "cell");
+      cell.setAttribute("class", "cell button btn2");
       cell.textContent = numbers[i * 5 + j];
 
       // Add click event listener to each cell
