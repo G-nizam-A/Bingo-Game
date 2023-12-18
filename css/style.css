@@ -17,6 +17,12 @@ body {
     /* overflow: hidden; */
 }
 
+a{
+    color: black;
+}
+a:hover{
+    color: rgb(0, 0, 0,60%);
+}
 .bingo-container {
     text-align: center;
 }
