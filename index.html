@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@700&display=swap" rel="stylesheet">
@@ -12,7 +13,7 @@
 </head>
 
 <body>
-    <div class="body">
+    <!-- <div class="body">
         <div id="world">
             <div id="sun">
                 <div class="sunbeams">
@@ -48,7 +49,7 @@
     <div id="slidecontainer">
         <input type="range" min="0" max="24" value="1" class="slider" id="myRange">
         <p class="simtime">Simulated time: <span id="demo"></span>:00</p>
-    </div>
+    </div> -->
 
      <div class="confetti">
     </div>
@@ -56,17 +57,17 @@
         <h1>Bingo Game</h1>
 
         <div class="score_card">
-            <button onclick="decScore()">-</button>
+            <button class="button btn1" onclick="decScore()"  title="inc">-</button>
             <div class="score-container">
                 <p>Score: <span id="score">0</span></p>
             </div>
-            <button onclick="incScore()">+</button>
+            <button class="button btn1" onclick="incScore()"  title="dec">+</button>
         </div>
 
         <table id="bingo-board"></table>
-        <button onclick="resetBoard()">New Game</button>
-        <button onclick="undo()">Undo</button>
-        <button onclick="removeTheme()">Theme</button>
+        <button class="button btn2" onclick="resetBoard()" title="refresh"><i class="fa-solid fa-arrows-rotate"></i></button>
+        <button class="button btn2" onclick="undo()"  title="undo"><i class="fa-solid fa-rotate-left"></i></button>
+        <!-- <button class="button btn2" onclick="removeTheme()">Theme</button> -->
     </div>
     <script src="script.js"></script>
     <script src="dn.js"></script>

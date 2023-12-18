@@ -8,6 +8,7 @@ body {
     height: 100vh;
     margin: 0;
     font-family: 'Kalam', cursive;
+    background: #efefef;
     /* overflow: hidden; */
 }
 
@@ -463,4 +464,52 @@ button {
     text-transform: uppercase;
     letter-spacing: 1px;
     font-size: 90%;
+}
+
+/* button */
+.button {
+    background: #efefef;
+    border: none;
+    color: #444;
+
+    font-weight: 700;
+    text-align: center;
+
+    outline: none;
+    cursor: pointer;
+    transition: .2s ease-in-out;
+    box-shadow: -6px -6px 14px rgba(255, 255, 255, .7),
+        -6px -6px 10px rgba(255, 255, 255, .5),
+        6px 6px 8px rgba(255, 255, 255, .075),
+        6px 6px 10px rgba(0, 0, 0, .15);
+}
+
+.btn1 {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn2 {
+    border-radius: 10px;
+    font-size: 1.5rem;
+    /* padding: 16px 80px; */
+}
+
+.button:hover {
+    box-shadow: -2px -2px 6px rgba(255, 255, 255, .6),
+        -2px -2px 4px rgba(255, 255, 255, .4),
+        2px 2px 2px rgba(255, 255, 255, .05),
+        2px 2px 4px rgba(0, 0, 0, .1);
+}
+
+.button:active {
+    box-shadow: inset -2px -2px 6px rgba(255, 255, 255, .7),
+        inset -2px -2px 4px rgba(255, 255, 255, .5),
+        inset 2px 2px 2px rgba(255, 255, 255, .075),
+        inset 2px 2px 4px rgba(0, 0, 0, .15);
 }
